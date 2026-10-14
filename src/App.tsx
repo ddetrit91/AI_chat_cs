@@ -1,3 +1,4 @@
+import { BrandLogo } from './components/BrandLogo'
 import { ChatWidget } from './components/chat/ChatWidget'
 import { IT_CENTER_PHONE, IT_CENTER_TELEGRAM } from '../shared/supportContacts'
 import './App.css'
@@ -60,7 +61,7 @@ function App() {
     <div className="demo">
       <header className="demo-header">
         <a className="demo-logo" href="#top">
-          АйТи-центр
+          <BrandLogo />
         </a>
         <nav className="demo-nav" aria-label="Основная навигация">
           <a href="#features">Услуги</a>

@@ -17,11 +17,49 @@
 }
 
 .demo-logo {
-  font-weight: 700;
-  font-size: 1.125rem;
-  color: var(--color-accent);
+  display: inline-flex;
   text-decoration: none;
-  white-space: nowrap;
+  color: inherit;
+}
+
+.brand-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand-logo__mark {
+  display: block;
+  flex-shrink: 0;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(42, 122, 158, 0.25);
+}
+
+.brand-logo__text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.15;
+}
+
+.brand-logo__name {
+  font-weight: 700;
+  font-size: 1.0625rem;
+  color: var(--color-text);
+  letter-spacing: -0.02em;
+}
+
+.brand-logo__tagline {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  color: var(--color-brand-blue, #2a7a9e);
+  margin-top: 2px;
+}
+
+@media (max-width: 520px) {
+  .brand-logo__tagline {
+    display: none;
+  }
 }
 
 .demo-nav {
@@ -76,8 +114,9 @@
   height: 280px;
   background: radial-gradient(
     ellipse 70% 60% at 50% 0%,
-    color-mix(in srgb, var(--color-accent) 18%, transparent),
-    transparent 70%
+    color-mix(in srgb, var(--color-brand-blue, #2a7a9e) 14%, transparent),
+    color-mix(in srgb, var(--color-accent) 10%, transparent) 45%,
+    transparent 72%
   );
   pointer-events: none;
   z-index: -1;
@@ -296,10 +335,10 @@
   text-align: center;
   background: linear-gradient(
     135deg,
-    color-mix(in srgb, var(--color-accent) 14%, var(--color-bg-surface)),
-    var(--color-bg-surface)
+    color-mix(in srgb, var(--color-brand-blue, #2a7a9e) 10%, var(--color-bg-surface)),
+    color-mix(in srgb, var(--color-accent) 8%, var(--color-bg-muted))
   );
-  border: 1px solid color-mix(in srgb, var(--color-accent) 22%, var(--color-border));
+  border: 1px solid color-mix(in srgb, var(--color-accent) 18%, var(--color-border));
 }
 
 .demo-contact__inner h2 {
