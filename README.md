@@ -1,10 +1,24 @@
-# Чат ИИ-агента (стиль Jivo)
+# АйТи-центр — чат ИИ-агента (стиль Jivo)
 
-Демо-лендинг и плавающий виджет чата на **Vite + React + TypeScript**. Ответы генерирует **Google Gemini** на backend (Node + Express).
+Лендинг IT-услуг и плавающий виджет чата на **Vite + React + TypeScript**. Ответы генерирует **Google Gemini** (локально — Express, на Vercel — serverless `/api`).
 
-## Запуск
+## Production (Vercel)
 
-1. Скопируйте переменные окружения и укажите API-ключ:
+- **Сайт:** https://ai-chat-cs-indol.vercel.app  
+- **Проверка API:** https://ai-chat-cs-indol.vercel.app/api/health  
+- **Проект в Vercel:** `ddetrit/ai-chat-cs`
+
+Переменные окружения на Vercel: `GEMINI_API_KEY`, `GEMINI_MODEL` (Production / Preview / Development).
+
+Повторный деплой из папки проекта (нужен вход в CLI: `npx vercel login`):
+
+```bash
+npx vercel deploy --prod
+```
+
+## Локальный запуск
+
+1. Скопируйте переменные окружения:
 
 ```bash
 cp .env.example .env
@@ -22,16 +36,12 @@ npm run dev
 - Сайт: `http://localhost:5173`
 - API: `http://localhost:3001` (проксируется с фронта как `/api/*`)
 
-Отдельно: `npm run dev:client` — только Vite; `npm run dev:server` — только API.
-
-## Сборка фронтенда
+## Сборка
 
 ```bash
 npm run build
 npm run preview
 ```
-
-Для production разверните [`server/`](server/) рядом с `dist/` и настройте прокси `/api` на backend.
 
 ## Архитектура
 
@@ -39,12 +49,14 @@ npm run preview
 |--------|------|
 | Виджет, UI | [`src/components/chat/`](src/components/chat/) |
 | Запросы к API | [`src/api/chat.ts`](src/api/chat.ts), [`src/hooks/useChat.ts`](src/hooks/useChat.ts) |
-| Express + Gemini | [`server/index.ts`](server/index.ts), [`server/gemini.ts`](server/gemini.ts) |
-| Системный промпт агента | [`server/agentPrompt.ts`](server/agentPrompt.ts) |
+| Express (локально) | [`server/index.ts`](server/index.ts) |
+| Vercel serverless | [`api/chat.ts`](api/chat.ts), [`api/health.ts`](api/health.ts) |
+| Gemini | [`server/gemini.ts`](server/gemini.ts) |
+| Промпт агента | [`server/agentPrompt.ts`](server/agentPrompt.ts) |
 
-Переменные: `GEMINI_API_KEY`, `GEMINI_MODEL` (по умолчанию `gemini-3.5-flash-lite`), опционально `GEMINI_FALLBACK_MODELS`, `PORT` (3001). Проверка: `GET /api/health` — поле `model`.
+Переменные: `GEMINI_API_KEY`, `GEMINI_MODEL` (по умолчанию `gemini-3.5-flash-lite`), опционально `GEMINI_FALLBACK_MODELS`.
 
-**Важно:** в `.env` строка должна быть вида `GEMINI_MODEL=gemini-3.5-flash-lite`, а не просто имя модели без ключа.
+**Важно:** в `.env` строка должна быть `GEMINI_MODEL=имя_модели`, а не только имя модели отдельной строкой.
 
 ## Тема
 
