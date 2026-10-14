@@ -43,7 +43,7 @@ export function ChatPanel({
       />
       <MessageList messages={messages} isTyping={isTyping} theme={theme} />
       <div ref={inputWrapRef}>
-        <ChatInput onSend={onSend} disabled={isTyping} />
+        <ChatInput onSend={onSend} disabled={isTyping} active={open} />
       </div>
     </div>
   )

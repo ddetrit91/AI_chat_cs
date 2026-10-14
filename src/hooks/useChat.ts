@@ -1,10 +1,7 @@
 import { useCallback, useRef, useState } from 'react'
+import { requestAgentReply } from '../api/chat'
 import type { Message } from '../types/chat'
-import {
-  getMockReply,
-  mockReplyDelayMs,
-  WELCOME_MESSAGE,
-} from '../mock/aiAgent'
+import { WELCOME_MESSAGE } from '../mock/aiAgent'
 
 function createMessage(role: Message['role'], text: string): Message {
   return {
@@ -15,11 +12,15 @@ function createMessage(role: Message['role'], text: string): Message {
   }
 }
 
+function toApiHistory(messages: Message[]) {
+  return messages.map((m) => ({ role: m.role, text: m.text }))
+}
+
 export function useChat() {
   const [messages, setMessages] = useState<Message[]>([])
   const [isTyping, setIsTyping] = useState(false)
   const welcomedRef = useRef(false)
-  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const requestIdRef = useRef(0)
 
   const ensureWelcome = useCallback(() => {
     if (welcomedRef.current) return
@@ -27,22 +28,41 @@ export function useChat() {
     setMessages([createMessage('assistant', WELCOME_MESSAGE)])
   }, [])
 
-  const sendMessage = useCallback((text: string) => {
+  const sendMessage = useCallback(async (text: string) => {
     const trimmed = text.trim()
     if (!trimmed || isTyping) return
 
-    setMessages((prev) => [...prev, createMessage('user', trimmed)])
+    const userMessage = createMessage('user', trimmed)
+    let historyForApi: Message[] = []
+
+    setMessages((prev) => {
+      historyForApi = [...prev, userMessage]
+      return historyForApi
+    })
     setIsTyping(true)
 
-    if (timeoutRef.current) clearTimeout(timeoutRef.current)
+    const requestId = ++requestIdRef.current
 
-    // mock: заменить на API/stream
-    timeoutRef.current = setTimeout(() => {
-      const reply = getMockReply(trimmed)
+    try {
+      const reply = await requestAgentReply(toApiHistory(historyForApi))
+      if (requestId !== requestIdRef.current) return
       setMessages((prev) => [...prev, createMessage('assistant', reply)])
-      setIsTyping(false)
-      timeoutRef.current = null
-    }, mockReplyDelayMs())
+    } catch (err) {
+      if (requestId !== requestIdRef.current) return
+      const detail =
+        err instanceof Error ? err.message : 'Не удалось связаться с сервером'
+      setMessages((prev) => [
+        ...prev,
+        createMessage(
+          'assistant',
+          `Сейчас не получается ответить: ${detail}. Если в сообщении 503 — подождите и попробуйте снова; проверьте GEMINI_MODEL=имя_модели в .env и перезапустите npm run dev.`,
+        ),
+      ])
+    } finally {
+      if (requestId === requestIdRef.current) {
+        setIsTyping(false)
+      }
+    }
   }, [isTyping])
 
   return {

@@ -1,14 +1,14 @@
-// mock: заменить на API
+import { IT_CENTER_PHONE, IT_CENTER_TELEGRAM } from '../../shared/supportContacts'
 
 export const MOCK_AGENT = {
   name: 'Алина',
-  title: 'ИИ-консультант',
+  title: 'Консультант АйТи-центра',
   avatarUrl: '/avatar-agent.svg',
   status: 'Онлайн',
 }
 
 export const WELCOME_MESSAGE =
-  'Здравствуйте! Я виртуальный помощник. Задайте вопрос о продукте, тарифах или поддержке — отвечу в течение минуты.'
+  `Здравствуйте! Я консультант АйТи-центра. Помогу с вопросами по IT-услугам: настройка техники, сети, программы, поддержка для бизнеса. По другим темам — звоните ${IT_CENTER_PHONE} или пишите в Telegram ${IT_CENTER_TELEGRAM}.`
 
 const KEYWORD_REPLIES: { pattern: RegExp; reply: string }[] = [
   {
