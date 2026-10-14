@@ -1,21 +1,22 @@
 :root,
 [data-theme='light'] {
-  --color-accent: #2a9d58;
-  --color-accent-hover: #248f4e;
-  --color-brand-blue: #2a7a9e;
-  --color-bg-page: #f3ede4;
-  --color-bg-surface: #faf6f0;
-  --color-bg-muted: #efe8dd;
-  --color-text: #2a2622;
-  --color-text-muted: #6f655b;
-  --color-border: #e3d9cc;
-  --color-bubble-user: #2a9d58;
-  --color-bubble-user-text: #ffffff;
-  --color-bubble-agent: #efe8dd;
-  --color-bubble-agent-text: #2a2622;
-  --color-header-text: #ffffff;
-  --shadow-panel: 0 8px 32px rgba(42, 38, 34, 0.1), 0 2px 8px rgba(42, 38, 34, 0.05);
-  --shadow-launcher: 0 4px 20px rgba(42, 157, 88, 0.4);
+  --color-accent: #4a8c62;
+  --color-accent-hover: #3f7a55;
+  --color-brand-blue: #4a7388;
+  --color-bg-page: #e6ddd1;
+  --color-bg-surface: #efe8dc;
+  --color-bg-muted: #e4dbcf;
+  --color-text: #3b352f;
+  --color-text-muted: #6e655c;
+  --color-border: #d5cbbd;
+  --color-bubble-user: #4a8c62;
+  --color-bubble-user-text: #f6f1ea;
+  --color-bubble-agent: #e4dbcf;
+  --color-bubble-agent-text: #3b352f;
+  --color-header-bg: #5a7d6a;
+  --color-header-text: #f6f1ea;
+  --shadow-panel: 0 8px 28px rgba(59, 53, 47, 0.08), 0 2px 6px rgba(59, 53, 47, 0.04);
+  --shadow-launcher: 0 4px 16px rgba(74, 140, 98, 0.28);
 }
 
 [data-theme='dark'] {
@@ -32,6 +33,7 @@
   --color-bubble-user-text: #ffffff;
   --color-bubble-agent: #2a2e35;
   --color-bubble-agent-text: #f3f4f6;
+  --color-header-bg: #2db742;
   --color-header-text: #ffffff;
   --shadow-panel: 0 8px 32px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.3);
   --shadow-launcher: 0 4px 20px rgba(45, 183, 66, 0.35);
@@ -58,6 +60,12 @@ body {
   color: var(--color-text);
   background: var(--color-bg-page);
   -webkit-font-smoothing: antialiased;
+}
+
+[data-theme='light'] body {
+  background:
+    radial-gradient(ellipse 90% 50% at 50% -10%, rgba(122, 150, 132, 0.12), transparent 55%),
+    var(--color-bg-page);
 }
 
 #root {
@@ -225,7 +233,7 @@ body {
   align-items: center;
   justify-content: space-between;
   padding: 14px 16px;
-  background: var(--color-accent);
+  background: var(--color-header-bg);
   color: var(--color-header-text);
   flex-shrink: 0;
 }

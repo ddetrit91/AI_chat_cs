@@ -5,7 +5,22 @@ interface BrandLogoProps {
 export function BrandLogo({ compact = false }: BrandLogoProps) {
   return (
     <span className={`brand-logo${compact ? ' brand-logo--compact' : ''}`}>
-      <img className="brand-logo__mark" src="/logo.svg" alt="" width={36} height={36} />
+      <svg
+        className="brand-logo__mark"
+        viewBox="0 0 40 40"
+        width={36}
+        height={36}
+        aria-hidden
+      >
+        <rect width="40" height="40" rx="11" fill="#2A7A9E" />
+        <rect x="8" y="10" width="24" height="16" rx="3" fill="#1E5A76" />
+        <rect x="10" y="12" width="20" height="12" rx="2" fill="#E8F4FA" />
+        <circle cx="16" cy="18" r="1.6" fill="#2A7A9E" />
+        <circle cx="20" cy="18" r="1.6" fill="#2A7A9E" />
+        <circle cx="24" cy="18" r="1.6" fill="#2A7A9E" />
+        <rect x="18" y="26" width="4" height="3" fill="#1E5A76" />
+        <rect x="13" y="29" width="14" height="2.5" rx="1.2" fill="#2DB742" />
+      </svg>
       {!compact && (
         <span className="brand-logo__text">
           <span className="brand-logo__name">АйТи-центр</span>

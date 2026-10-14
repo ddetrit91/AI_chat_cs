@@ -31,6 +31,8 @@
 .brand-logo__mark {
   display: block;
   flex-shrink: 0;
+  width: 36px;
+  height: 36px;
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(42, 122, 158, 0.25);
 }
